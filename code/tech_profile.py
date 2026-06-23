@@ -2,15 +2,12 @@
 class GenericProfile:
     """Knowledge base for Yosys Generic Standard Cells."""
     
-    # نگاشت سلول‌های جنریک Yosys به دامنه (Sequential/Combinational) و پین خروجی
     CELL_MAP = {
-        # فلیپ‌فلاپ‌ها (خروجی همیشه Q است)
         "$_dff_p_":   {"domain": "SEQ", "out_pin": "Q"},
         "$_dff_n_":   {"domain": "SEQ", "out_pin": "Q"},
         "$_dff_pp0_": {"domain": "SEQ", "out_pin": "Q"},
         "$_dff_pp1_": {"domain": "SEQ", "out_pin": "Q"},
         
-        # گیت‌های منطقی پایه (خروجی همیشه Y است)
         "$_and_":     {"domain": "COMB", "out_pin": "Y"},
         "$_or_":      {"domain": "COMB", "out_pin": "Y"},
         "$_xor_":     {"domain": "COMB", "out_pin": "Y"},
@@ -19,7 +16,6 @@ class GenericProfile:
         "$_xnor_":    {"domain": "COMB", "out_pin": "Y"},
         "$_not_":     {"domain": "COMB", "out_pin": "Y"},
         
-        # مالتی‌پلکسر (خروجی Y است)
         "$_mux_":     {"domain": "COMB", "out_pin": "Y"}
     }
 
@@ -32,7 +28,6 @@ class GenericProfile:
             if cell_type_lower.startswith(key):
                 return val
                 
-        # Heuristic Fallback
         if "dff" in cell_type_lower:
             return {"domain": "SEQ", "out_pin": "Q"}
         

@@ -13,7 +13,6 @@ class PathManager:
     NETLIST_DIR = PROJECT_ROOT / "netlists" / "raw"
     INSTRUMENTED_DIR = PROJECT_ROOT / "netlists" / "instrumented"
     
-    # 🌟 این خطوط دقیقاً همان‌هایی هستند که باعث ارور شدند و الان اضافه شدند 🌟
     TARGETS_MANIFEST = PROJECT_ROOT / "manifests" / "targets.json"
     RUNTIME_CONFIG = PROJECT_ROOT / "manifests" / "runtime_config.json"
     BASELINE_SUMMARY = PROJECT_ROOT / "manifests" / "baseline_summary.json"
