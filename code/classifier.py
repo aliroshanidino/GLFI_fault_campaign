@@ -16,12 +16,11 @@ class BioClassifierAgent:
         self.raw_csv = PathManager.RAW_RESULTS_CSV
         self.classified_csv = PathManager.LATEST_RUN_DIR / "classified_results.csv"
         
-        # مرزهای جدید و عادلانه‌ی فرکانس آتش (مبنا: 50 اسپایک گلدن)
         self.BOUND_DEAD = 0
         self.BOUND_UNDERACTIVE_MAX = 14
         self.BOUND_OPTIMAL_MIN = 15
         self.BOUND_OPTIMAL_MAX = 85
-        self.BOUND_SURFING_MAX = 400   # اوج هنر هموستاز در مهار خطای کشنده SA1
+        self.BOUND_SURFING_MAX = 400  
         
         self.TIMING_TOLERANCE = 3
         self.MAX_ISI_CV = 0.5
