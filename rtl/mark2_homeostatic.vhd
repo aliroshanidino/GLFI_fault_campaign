@@ -58,7 +58,7 @@ architecture Behavioral of homeostatic_neuron2 is
     signal theta_err    : signed(WIDTH-1 downto 0);
     signal theta_decay  : signed(WIDTH-1 downto 0);
     signal theta_raw    : signed(WIDTH-1 downto 0);
-    signal theta_jump_raw: signed(WIDTH-1 downto 0); -- [NEW] Added for safe calculation
+    signal theta_jump_raw: signed(WIDTH-1 downto 0); 
     
     signal beta_brake   : signed(WIDTH-1 downto 0);
     signal u_jump_raw   : signed(WIDTH-1 downto 0);
@@ -80,7 +80,7 @@ architecture Behavioral of homeostatic_neuron2 is
     constant U_MAX_HW        : signed(WIDTH-1 downto 0) := to_signed(2097152, WIDTH); -- 4.0
     constant U_MIN_HW        : signed(WIDTH-1 downto 0) := to_signed(-2097152,WIDTH); -- -4.0
     
-    -- [NEW] Safety Ceiling for Theta (8.0 in Q7.19) to prevent wrap-around
+    -- Safety Ceiling for Theta (8.0 in Q7.19) to prevent wrap-around
     constant THETA_MAX_HW    : signed(WIDTH-1 downto 0) := to_signed(4194304, WIDTH); 
     
     constant C_0_25          : signed(WIDTH-1 downto 0) := to_signed(131072, WIDTH);
@@ -132,7 +132,7 @@ begin
                     U_MIN_HW when u_pre_clamp < U_MIN_HW else
                     u_pre_clamp;
 
-    -- [NEW] Calculate potential theta jump to check for overflow
+    -- Calculate potential theta jump to check for overflow
     theta_jump_raw <= theta_raw + GAMMA_HW;
 
     -- 4. 1-Cycle State Update

@@ -16,8 +16,6 @@ from target_extractor import TargetExtractorAgent
 from instrumentor import InstrumentorAgent
 
 def worker_process(model_name, split_total, split_idx):
-    """اجرای شبیه‌سازی در Sandbox اختصاصی برای هر ترد"""
-    # نام‌گذاری فایل‌ها: اگر 1 پارت باشد نام خود مدل، اگر بیشتر باشد part اضافه می‌شود
     part_str = f"_part{split_idx + 1}" if split_total > 1 else ""
     task_name = f"{model_name}{part_str}"
     
@@ -33,19 +31,16 @@ def worker_process(model_name, split_total, split_idx):
     env["TOP_MODULE"] = model_name
     env["PROJ_ROOT"] = str(PROJECT_ROOT)
     
-    # متغیرهای برش کار برای هسته
     env["SPLIT_TOTAL"] = str(split_total)
     env["SPLIT_INDEX"] = str(split_idx)
     env["TASK_NAME"] = task_name 
     
-    # 🌟 تنظیم مسیر دقیق ذخیره‌سازی مطابق اسکرین‌شات 🌟
     archive_dir = PROJECT_ROOT / "campaign_archive" / model_name / "csv_data"
     archive_dir.mkdir(parents=True, exist_ok=True)
     
     env["CSV_RESULTS_PATH"] = str(archive_dir / f"{task_name}_results.csv")
     env["PROGRESS_FILE"] = str(sandbox_dir / "progress.txt")
     
-    # اجرای Icarus در محیط ایزوله
     subprocess.run(
         ["make"], 
         cwd=sandbox_dir, 
@@ -57,8 +52,6 @@ def worker_process(model_name, split_total, split_idx):
 class ParallelCampaignMaster:
     def __init__(self):
         self.logger = setup_logger("BatchMaster")
-        # 🌟 تخصیص ۱۱ ترد بر اساس توپولوژی جدید 🌟
-        # فرمت: (نام مدل، تعداد کل تردها، شناسه ترد)
         self.tasks = [
             ("baseline_neuron2", 1, 0),                                # 1 Thread
             ("homeostatic_neuron2", 2, 0), ("homeostatic_neuron2", 2, 1), # 2 Threads
@@ -67,7 +60,7 @@ class ParallelCampaignMaster:
             ("ultimate_tmr_neuron2", 4, 0), ("ultimate_tmr_neuron2", 4, 1), 
             ("ultimate_tmr_neuron2", 4, 2), ("ultimate_tmr_neuron2", 4, 3) # 4 Threads
         ]
-        self.models = list(dict.fromkeys([t[0] for t in self.tasks])) # حذف تکراری‌ها برای فاز آماده‌سازی
+        self.models = list(dict.fromkeys([t[0] for t in self.tasks])) 
 
     def prepare_netlists(self):
         self.logger.info("🛠️ Phase 1-3: Smart Netlist Preparation...")
@@ -75,7 +68,6 @@ class ParallelCampaignMaster:
             target_file = PROJECT_ROOT / "netlists" / "instrumented" / f"targets_{model}.json"
             instrumented_file = PROJECT_ROOT / "netlists" / "instrumented" / f"{model}_instrumented.v"
             
-            # جلوگیری از بازنویسی اگر از قبل آماده است
             if target_file.exists() and instrumented_file.exists():
                 self.logger.info(f"⏭️ Skipping {model}: Manifest and Instrumented netlist exist.")
                 continue
@@ -108,7 +100,6 @@ class ParallelCampaignMaster:
                             bar_len = 20
                             filled = int(float(pct) / 100 * bar_len)
                             bar = "█" * filled + "-" * (bar_len - filled)
-                            # تنظیم چاپ منظم در ترمینال
                             print(f" ⚙️ {task_name[:30]:<30} | [{bar}] {pct:>5}% | {zone[:13]:<13} | {fault}")
                             continue
                     except:
