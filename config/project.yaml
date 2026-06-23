@@ -1,0 +1,17 @@
+project:
+  name: Adaptive Homeostasis GLFI Campaign
+  top_module: homeostatic_neuron2
+  technology: Yosys_Generic
+fault_model:
+  type: Stuck-At
+  values:
+  - 0
+  - 1
+  mechanism: Shadow-Hook (Mux-based)
+simulation:
+  simulator: icarus
+  clock_period_ns: 10
+  warmup_cycles: 20
+  injection_delay: 2000
+  observation_cycles: 10000
+  determinism_runs: 3

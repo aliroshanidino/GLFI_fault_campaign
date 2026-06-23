@@ -1,0 +1,22 @@
+{
+    "project_name": "Adaptive Homeostasis GLFI Campaign",
+    "top_module": "homeostatic_neuron2",
+    "netlist_type": "Yosys_Generic",
+    "total_targets": 2944,
+    "simulation_settings": {
+        "simulator": "icarus",
+        "clock_period_ns": 10,
+        "warmup_cycles": 20,
+        "injection_delay": 2000,
+        "observation_cycles": 10000,
+        "determinism_runs": 3
+    },
+    "fault_model": {
+        "type": "Stuck-At",
+        "values": [
+            0,
+            1
+        ],
+        "mechanism": "Shadow-Hook (Mux-based)"
+    }
+}

@@ -1,0 +1,6 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1781593870" />
+    <testcase name="dynamic_shadow_hook_test" classname="cocotb_orchestrator" file="/home/libftizh/neuro_paper_1/Generic_GLFI_fault_campaign/code/cocotb_orchestrator.py" lineno="165" time="55234.294627428055" sim_time_ns="410929090.0" ratio_time="7439.745411285514" />
+  </testsuite>
+</testsuites>
