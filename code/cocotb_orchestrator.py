@@ -16,7 +16,6 @@ CSV_RESULTS_PATH = os.environ.get("CSV_RESULTS_PATH", "results.csv")
 PROGRESS_FILE = os.environ.get("PROGRESS_FILE", "progress.txt")
 PROJ_ROOT = Path(os.environ.get("PROJ_ROOT", "../../.."))
 
-# متغیرهای تقسیم کار
 SPLIT_TOTAL = int(os.environ.get("SPLIT_TOTAL", "1"))
 SPLIT_INDEX = int(os.environ.get("SPLIT_INDEX", "0"))
 
@@ -105,13 +104,11 @@ class CampaignOrchestrator:
         with open(manifest_path, 'r') as f:
             all_targets = json.load(f)
             
-        # 🌟 ریاضیات دقیق برای جداسازی سهمیه‌ی این هسته 🌟
         chunk_size = math.ceil(len(all_targets) / SPLIT_TOTAL)
         start_idx = SPLIT_INDEX * chunk_size
         end_idx = min(start_idx + chunk_size, len(all_targets))
         my_targets = all_targets[start_idx:end_idx]
         
-        # 🌟 فیلتر کردن دقیق خطاهای انجام‌شده از روی CSV 🌟
         tasks_to_run = []
         for target in my_targets:
             t_id = target["id"]
@@ -156,7 +153,6 @@ class CampaignOrchestrator:
             completed_this_session += 1
             current_progress = already_done + completed_this_session
             
-            # آپدیت داشبورد هر 5 ران
             if completed_this_session % 5 == 0 or current_progress == total_chunk_runs:
                 self.write_progress(current_progress, total_chunk_runs, t_zone, f"SA{f_val} @ {t_name}")
                 
