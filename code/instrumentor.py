@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 from utils import PathManager, setup_logger, load_config
 
-# 🔴 تعریف ریشه پروژه به صورت ایمن 🔴
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 class InstrumentorAgent:
@@ -25,7 +24,6 @@ class InstrumentorAgent:
         self.raw_netlist = PathManager.NETLIST_DIR / f"{self.top_module}_generic.v"
         self.instrumented_netlist = PathManager.INSTRUMENTED_DIR / f"{self.top_module}_instrumented.v"
         
-        # 🔴 فیکس شد: استفاده از متغیر PROJECT_ROOT ایزوله 🔴
         self.targets_manifest = PROJECT_ROOT / "netlists" / "instrumented" / f"targets_{self.top_module}.json"
 
     def execute(self):
