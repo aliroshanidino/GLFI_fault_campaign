@@ -68,7 +68,6 @@ class InstrumentorAgent:
             safe_net = re.sub(r'[^a-zA-Z0-9_]', '_', out_net)
             hook_net = f"hook_{safe_net}_{t_id}"
 
-            # جایگزینی فقط و فقط روی همان پینی که اکستراکتور پیدا کرده بود انجام می‌شود
             pin_pattern = re.compile(r'(\.\s*' + out_pin + r'\s*\(\s*)' + re.escape(out_net) + r'(\s*\))')
             new_block = pin_pattern.sub(rf'\g<1>{hook_net}\g<2>', old_block)
 
