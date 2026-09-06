@@ -13,7 +13,6 @@ class InstrumentorAgent:
     def __init__(self):
         self.logger = setup_logger("Instrumentor")
         
-        # خواندن نام ماژول از متغیر محیطی
         env_module = os.environ.get("TOP_MODULE")
         if env_module:
             self.top_module = env_module

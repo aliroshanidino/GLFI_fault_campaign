@@ -57,6 +57,8 @@ class ParallelCampaignMaster:
             ("homeostatic_neuron2", 2, 0), ("homeostatic_neuron2", 2, 1), # 2 Threads
             ("light_tmr_neuron2", 4, 0), ("light_tmr_neuron2", 4, 1), 
             ("light_tmr_neuron2", 4, 2), ("light_tmr_neuron2", 4, 3),      # 4 Threads
+            ("restoringorgan_neuron2", 4, 0), ("restoringorgan_neuron2", 4, 1), 
+            ("restoringorgan_neuron2", 4, 2), ("restoringorgan_neuron2", 4, 3),      # 4 Threads
             ("ultimate_tmr_neuron2", 4, 0), ("ultimate_tmr_neuron2", 4, 1), 
             ("ultimate_tmr_neuron2", 4, 2), ("ultimate_tmr_neuron2", 4, 3) # 4 Threads
         ]
