@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from utils import PathManager, setup_logger, load_config
 
-# 🔴 تعریف ریشه پروژه به صورت ایمن (جایگزین PathManager.PROJECT_ROOT) 🔴
+
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 class TargetExtractorAgent:
@@ -14,7 +14,6 @@ class TargetExtractorAgent:
     def __init__(self):
         self.logger = setup_logger("TargetExtractor")
         
-        # خواندن نام ماژول از متغیر محیطی (تزریق شده توسط داشبورد)
         env_module = os.environ.get("TOP_MODULE")
         if env_module:
             self.top_module = env_module
@@ -24,7 +23,6 @@ class TargetExtractorAgent:
             
         self.raw_netlist = PathManager.NETLIST_DIR / f"{self.top_module}_generic.v"
         
-        # 🔴 فیکس شد: استفاده از متغیر PROJECT_ROOT ایزوله 🔴
         self.targets_file = PROJECT_ROOT / "netlists" / "instrumented" / f"targets_{self.top_module}.json"
 
     def get_zone(self, cell_type, out_net, inst_name):
@@ -51,7 +49,6 @@ class TargetExtractorAgent:
         with open(self.raw_netlist, 'r') as f:
             content = f.read()
 
-        # رگکس اصلاح‌شده: کاراکتر \ را که Yosys اضافه می‌کند با \\? شناسایی می‌کند
         pattern = re.compile(r'^[ \t]*(\\?\$_[A-Za-z0-9_]+_)\s+([^ \t\n\(]+).*?\((.*?)\);', re.MULTILINE | re.DOTALL)
         matches = pattern.finditer(content)
 
@@ -65,7 +62,6 @@ class TargetExtractorAgent:
             inst_name = match.group(2).strip() 
             ports_block = match.group(3)
 
-            # استخراج پین Y یا Q
             out_match = re.search(r'\.\s*([YQ])\s*\(\s*([^)]+?)\s*\)', ports_block)
             if not out_match:
                 continue

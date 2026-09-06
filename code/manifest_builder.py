@@ -22,7 +22,7 @@ class ManifestBuilderAgent:
         runtime_payload = {
             "project_name": self.config['project']['name'],
             "top_module": self.config['project']['top_module'],
-            "netlist_type": "Yosys_Generic", # 🌟 مشخص‌کننده نوع نت‌لیست
+            "netlist_type": "Yosys_Generic", 
             "total_targets": len(targets),
             "simulation_settings": self.config['simulation'],
             "fault_model": self.config['fault_model']
