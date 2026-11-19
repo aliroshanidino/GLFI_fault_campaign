@@ -114,7 +114,7 @@ begin
     v_next_raw <= v_reg + shift_right(dv, 6);
 
     b_v        <= shift_right(v_reg, 2) - shift_right(v_reg, 4) + v_shr_6;
-    diff_u     <= b_v - U_REST - u_reg;
+    diff_u     <= b_v + U_REST - u_reg;
     du         <= shift_right(diff_u, 6) + shift_right(diff_u, 8);
     u_next_raw <= u_reg + shift_right(du, 6);
 

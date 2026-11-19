@@ -117,7 +117,7 @@ begin
     v_next_raw <= v_voted + shift_right(dv, 6);
 
     b_v        <= shift_right(v_voted, 2) - shift_right(v_voted, 4) + v_shr_6;
-    diff_u     <= b_v - U_REST - u_voted;
+    diff_u     <= b_v + U_REST - u_voted;
     du         <= shift_right(diff_u, 6) + shift_right(diff_u, 8);
     u_next_raw <= u_voted + shift_right(du, 6);
 

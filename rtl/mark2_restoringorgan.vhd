@@ -8,7 +8,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 
-entity light_tmr_neuron2 is
+entity restoringorgan_neuron2 is
     Generic ( WIDTH : integer := 26 );
     Port (
         Clk        : in  STD_LOGIC;
@@ -20,9 +20,9 @@ entity light_tmr_neuron2 is
         Theta_out  : out signed(WIDTH-1 downto 0); 
         Spike      : out STD_LOGIC
     );
-end light_tmr_neuron2;
+end restoringorgan_neuron2;
 
-architecture Behavioral of light_tmr_neuron2 is
+architecture Behavioral of restoringorgan_neuron2 is
     
     -- 1. Unprotected State Registers (Datapath)
     signal v_reg : signed(WIDTH-1 downto 0) := (others => '0');
@@ -135,7 +135,7 @@ begin
     v_next_raw <= v_reg + shift_right(dv, 6);
 
     b_v        <= shift_right(v_reg, 2) - shift_right(v_reg, 4) + v_shr_6;
-    diff_u     <= b_v - U_REST - u_reg;
+    diff_u     <= b_v + U_REST - u_reg;
     du         <= shift_right(diff_u, 6) + shift_right(diff_u, 8);
     u_next_raw <= u_reg + shift_right(du, 6);
 
